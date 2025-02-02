@@ -2,8 +2,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: vpro-ingress
-  labels:
-    app: gopiadi-app
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
@@ -16,6 +14,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: gopiadi-app-service  # The name of the service we created earlier
+                name: vproapp-service  # The name of the service we created earlier
                 port:
-                  number: 80  # The port your service is exposed on
+                  number: 8080  # The port your service is exposed on
