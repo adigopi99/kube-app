@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: memcached-service
+  name: vprocache01
   labels:
-    app: memcached
+    app: vpromc
 spec:
   selector:
-    app: memcached  # This must match the labels of the deployment
+    app: vpromc   # This must match the labels of the deployment
   ports:
     - protocol: TCP
       port: 11211  # The port the service will expose
