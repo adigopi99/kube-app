@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: gopiadi-app-service
+  name: vproapp-service
   labels:
-    app: gopiadi-app
+    app: vproapp
 spec:
   selector:
-    app: gopiadi-app  # This selector should match the label of the gopiadi/app pod
+    app: vproapp # This selector should match the label of the gopiadi/app pod
   ports:
     - protocol: TCP
       port: 80           # This is the port exposed by the service
