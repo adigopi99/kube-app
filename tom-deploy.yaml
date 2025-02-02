@@ -32,10 +32,3 @@ spec:
           image: gopiadi/app
           ports:
             - containerPort: 8080  # Adjust this based on your app's listening port
-          volumeMounts:
-            - name: db-storage
-              mountPath: /path/to/mount  # Replace with the path you want inside the container
-      volumes:
-        - name: db-storage
-          persistentVolumeClaim:
-            claimName: db-pv-claim
