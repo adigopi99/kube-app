@@ -1,12 +1,13 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: gopiadi-app-ingress
+  name: vpro-ingress
   labels:
     app: gopiadi-app
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
+  ingressClassName: nginx
   rules:
     - host: gopiadi-app.local  # You can replace this with your domain name or public IP
       http:
