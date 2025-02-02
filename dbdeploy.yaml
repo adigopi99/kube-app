@@ -17,7 +17,9 @@ spec:
       containers:
         - name: vrpdb
           image: gopiadi/db
-          volumeMounts:/var/lib/mysql
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: vpro-db-pass
           ports: 
             - name: vprodb-port
               containerPort: 3306
@@ -29,30 +31,17 @@ spec:
                   key: db-pass
       volumes: 
         - name: vpro-db-pass
-          persistenceVolumeClaim:
+          persistentVolumeClaim:
             claimName: db-pv-claim
 
-      initContainer: 
+      initContainers: 
         - name: busybox
           image: busybox
-          args: ["rm","-rf","/var/lib/mysql/lost+found"]
-          volumes: 
+          args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
+          volumeMounts:
+            - name: vpro-db-pass
+              mountPath: /var/lib/mysql
+      volumes: 
         - name: vpro-db-pass
-          persistenceVolumeClaim:
+          persistentVolumeClaim:
             claimName: db-pv-claim
-                  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              
