@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gopiadi-app-ingress
+  labels:
+    app: gopiadi-app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: gopiadi-app.local  # You can replace this with your domain name or public IP
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gopiadi-app-service  # The name of the service we created earlier
+                port:
+                  number: 80  # The port your service is exposed on
