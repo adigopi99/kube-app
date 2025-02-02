@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: memcached
+  name: vpromc
   labels:
-    app: memcached
+    app: vpromc
 spec:
   replicas: 1  # Number of replicas (adjust as needed)
   selector:
     matchLabels:
-      app: memcached
+      app: vpromc
   template:
     metadata:
       labels:
-        app: memcached
+        app: vpromc
     spec:
       containers:
         - name: memcached
