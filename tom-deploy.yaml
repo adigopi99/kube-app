@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gopiadi-app
+  labels:
+    app: gopiadi-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gopiadi-app
+  template:
+    metadata:
+      labels:
+        app: gopiadi-app
+    spec:
+      initContainers:
+        - name: wait-for-db
+          image: busybox
+          command: ['sh', '-c', 'until nc -zv vprodb 3306; do echo "Waiting for DB..."; sleep 2; done;']
+          # Wait for vprodb to be ready (adjust for other services like vpromc, vprormq)
+        - name: wait-for-memcached
+          image: busybox
+          command: ['sh', '-c', 'until nc -zv vpromc 11211; do echo "Waiting for Memcached..."; sleep 2; done;']
+          # Wait for vpromc (Memcached)
+        - name: wait-for-rabbitmq
+          image: busybox
+          command: ['sh', '-c', 'until nc -zv vprormq 5672; do echo "Waiting for RabbitMQ..."; sleep 2; done;']
+          # Wait for vprormq (RabbitMQ)
+      containers:
+        - name: gopiadi-app
+          image: gopiadi/app
+          ports:
+            - containerPort: 8080  # Adjust this based on your app's listening port
+          volumeMounts:
+            - name: db-storage
+              mountPath: /path/to/mount  # Replace with the path you want inside the container
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: db-pv-claim
