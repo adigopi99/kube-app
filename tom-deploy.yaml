@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gopiadi-app
+  name: vproapp
   labels:
-    app: gopiadi-app
+    app: vproapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gopiadi-app
+      app: vproapp
   template:
     metadata:
       labels:
-        app: gopiadi-app
+        app: vproapp
     spec:
       initContainers:
         - name: wait-for-db
@@ -25,7 +25,7 @@ spec:
           # Wait for vpromc (Memcached)
         - name: wait-for-rabbitmq
           image: busybox
-          command: ['sh', '-c', 'until nc -zv vprormq 5672; do echo "Waiting for RabbitMQ..."; sleep 2; done;']
+          command: ['sh', '-c', 'until nc -zv vpromq01 5672; do echo "Waiting for RabbitMQ..."; sleep 2; done;']
           # Wait for vprormq (RabbitMQ)
       containers:
         - name: gopiadi-app
