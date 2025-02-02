@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vprodb-service
+  labels:
+    app: vprodb
+spec:
+  selector:
+    app: vprodb  # This must match the labels of the deployment
+  ports:
+    - protocol: TCP
+      port: 3306  # The port the service will expose
+      targetPort: 3306  # The port the container listens on
+  type: ClusterIP  # This is the default service type (no need to specify if it's ClusterIP)
