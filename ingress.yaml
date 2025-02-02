@@ -7,13 +7,13 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: gopiadi-app.local  # You can replace this with your domain name or public IP
+    - host: localhost  # Replace this with localhost or the external IP (in cloud environments)
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: vproapp-service  # The name of the service we created earlier
+                name: vproapp-service
                 port:
-                  number: 8080  # The port your service is exposed on
+                  number: 8080  # Use the exposed port from your service
