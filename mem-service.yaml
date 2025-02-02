@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: memcached-service
+  labels:
+    app: memcached
+spec:
+  selector:
+    app: memcached  # This must match the labels of the deployment
+  ports:
+    - protocol: TCP
+      port: 11211  # The port the service will expose
+      targetPort: 11211  # The port the container listens on
+  type: ClusterIP  # Expose the service internally within the cluster
